@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import logo from "@/assets/logo.png"
+import { saveNewUser } from "./api/save-new-user";
 
 // ─────────────────────────────────────────────────────────────
 // Schema de validación
@@ -102,10 +103,13 @@ export const LandingTigerFortuna = () => {
   }, [drawerOpen, form]);
 
   const onSubmit = async (data: FormData) => {
+    console.log({data});
+    
     setIsSubmitting(true);
-    // Simular envío
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log("Datos del registro:", data);
+    saveNewUser({
+      fullName: data.nombre,
+      phoneNumber: data.telefono,
+    })
     setIsSubmitting(false);
     setSubmitSuccess(true);
   };
