@@ -1,1 +1,1 @@
-export * from "./langing-tiger"
+export * from "./landing-tiger"
