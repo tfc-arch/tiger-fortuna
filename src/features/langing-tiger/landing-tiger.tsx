@@ -21,6 +21,8 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
+import logo from "@/assets/logo.png"
+
 // ─────────────────────────────────────────────────────────────
 // Schema de validación
 // ─────────────────────────────────────────────────────────────
@@ -31,8 +33,8 @@ const formSchema = z.object({
     .max(50, { message: "El nombre no puede exceder los 50 caracteres" }),
   telefono: z
     .string()
-    .regex(/^\+?\d{8,15}$/, {
-      message: "Ingresá un teléfono válido (8-15 dígitos, puede empezar con +)",
+    .regex(/^0?9\d{8}$/, {
+      message: "Ingresá un número válido (ej: 0981 123 456)",
     }),
 });
 
@@ -41,33 +43,34 @@ type FormData = z.infer<typeof formSchema>;
 // ─────────────────────────────────────────────────────────────
 // Datos de secciones
 // ─────────────────────────────────────────────────────────────
-const BONO_BULLETS = [
-  "🎰 100% en tu primer depósito hasta $50.000",
-  "🎁 50 giros gratis en tragamonedas premium",
-  "⚡ Activación instantánea, sin códigos",
-];
-
 const FEATURES = [
   {
-    icon: "🔒",
-    title: "Seguridad Garantizada",
-    description: "Encriptación de última generación y protección de datos 24/7",
+    icon: "⚡",
+    title: "Registro Rápido y Gratuito",
+    description: "Nuestros agentes crean tu cuenta de forma rápida y totalmente gratuita",
   },
   {
-    icon: "💳",
-    title: "Pagos Rápidos",
-    description: "Retiros procesados en menos de 24 horas a tu cuenta",
+    icon: "📱",
+    title: "Jugá Desde Cualquier Lugar",
+    description: "Acceso fácil desde celular, tablet o computadora",
   },
   {
-    icon: "🎮",
-    title: "+500 Juegos",
-    description: "Slots, ruleta, blackjack y más de los mejores proveedores",
+    icon: "💸",
+    title: "Recargas Instantáneas",
+    description: "Recargas de créditos al instante para que no pares de jugar",
   },
   {
-    icon: "🏆",
-    title: "Soporte VIP",
-    description: "Atención personalizada en español las 24 horas",
+    icon: "💬",
+    title: "Atención por WhatsApp",
+    description: "Atención personalizada por WhatsApp, con operadores reales",
   },
+];
+
+const INFO_POINTS = [
+  "El acceso se gestiona a través de nuestros agentes, con atención rápida y personalizada",
+  "Las recargas y el cobro de premios se realizan mediante transferencias",
+  "Las promociones cuentan con bases y condiciones, que podés consultar con tu agente",
+  "Plataforma destinada exclusivamente a personas responsables y mayores de edad",
 ];
 
 // ─────────────────────────────────────────────────────────────
@@ -114,12 +117,11 @@ export const LandingTigerFortuna = () => {
     if (submitSuccess) {
       return (
         <div className="flex flex-col items-center justify-center py-8 text-center">
-          <div className="mb-4 text-6xl">🐅</div>
           <h3 className="mb-2 text-2xl font-bold text-amber-400">
-            ¡Registro exitoso!
+            ¡Listo!
           </h3>
           <p className="text-zinc-400">
-            Pronto te contactaremos para activar tu cuenta y bono de bienvenida.
+            Un agente de Tiger Fortuna se va a comunicar con vos en el momento para crear tu usuario y explicarte cómo empezar.
           </p>
           <DrawerClose asChild>
             <Button
@@ -148,7 +150,7 @@ export const LandingTigerFortuna = () => {
                   {...field}
                   ref={firstInputRef}
                   id="tiger-form-nombre"
-                  placeholder="Tu nombre completo"
+                  placeholder="Completá tu nombre"
                   aria-invalid={fieldState.invalid}
                   aria-describedby={fieldState.invalid ? "nombre-error" : undefined}
                   className="border-zinc-700 bg-zinc-900/80 text-white placeholder:text-zinc-500 focus:border-amber-500 focus:ring-amber-500/20"
@@ -166,13 +168,13 @@ export const LandingTigerFortuna = () => {
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor="tiger-form-telefono" className="text-zinc-200">
-                  Teléfono
+                  Número de WhatsApp
                 </FieldLabel>
                 <Input
                   {...field}
                   id="tiger-form-telefono"
                   type="tel"
-                  placeholder="+54 11 1234-5678"
+                  placeholder="0981 123 456"
                   aria-invalid={fieldState.invalid}
                   aria-describedby={fieldState.invalid ? "telefono-error" : undefined}
                   className="border-zinc-700 bg-zinc-900/80 text-white placeholder:text-zinc-500 focus:border-amber-500 focus:ring-amber-500/20"
@@ -215,7 +217,7 @@ export const LandingTigerFortuna = () => {
               Procesando...
             </span>
           ) : (
-            "Registrarme ahora"
+            "CREAR USUARIO"
           )}
         </Button>
       </form>
@@ -248,23 +250,20 @@ export const LandingTigerFortuna = () => {
         <div className="relative mx-auto max-w-5xl px-4 pb-16 pt-12 sm:px-6 sm:pb-24 sm:pt-20 lg:px-8">
           {/* Logo / Brand */}
           <div className="mb-8 flex items-center justify-center gap-3 sm:mb-12">
-            <span className="text-4xl sm:text-5xl">🐅</span>
-            <h1 className="bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl">
-              TIGER FORTUNA
-            </h1>
+            <img className="max-w-100 object-contain px-10" src={logo} alt="tiger fortuna logo" />
           </div>
 
           {/* Hero Content */}
           <div className="text-center">
-            <h2 className="mx-auto max-w-3xl text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl">
-              Tu suerte empieza{" "}
+            <h2 className="mx-auto max-w-3xl text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl">
+              Creá tu usuario y empezá a{" "}
               <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
-                ahora
+                divertirte
               </span>
             </h2>
-            <p className="mx-auto mt-6 max-w-xl text-lg text-zinc-400 sm:text-xl">
-              Descubrí la emoción del juego online con los mejores bonos, pagos
-              instantáneos y más de 500 juegos exclusivos.
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-zinc-400 sm:text-xl">
+              Creá tu usuario en pocos minutos y empezá a divertirte con todos los juegos disponibles en nuestra plataforma.
+              Jugá con dinero real, ganá y cobrá al instante, de forma simple y segura.
             </p>
 
             {/* CTA Principal */}
@@ -283,11 +282,10 @@ export const LandingTigerFortuna = () => {
                   <div className="mx-auto w-full max-w-md">
                     <DrawerHeader>
                       <DrawerTitle className="text-center text-2xl font-bold text-white">
-                        🐅 Creá tu cuenta
+                        📝 Creá tu usuario ahora
                       </DrawerTitle>
                       <DrawerDescription className="text-center text-zinc-400">
-                        Completá tus datos y empezá a jugar con tu bono de
-                        bienvenida.
+                        Dejanos tu nombre y tu número de WhatsApp. Un agente de Tiger Fortuna se va a comunicar con vos en el momento.
                       </DrawerDescription>
                     </DrawerHeader>
                     <div className="px-4 pb-4">
@@ -295,10 +293,7 @@ export const LandingTigerFortuna = () => {
                     </div>
                     <DrawerFooter className="border-t border-zinc-800 pt-4">
                       <p className="text-center text-xs text-zinc-500">
-                        Al registrarte aceptás los{" "}
-                        <a href="#" className="text-amber-500 hover:underline">
-                          Términos y Condiciones
-                        </a>
+                        Solo para mayores de 18 años. Jugá con responsabilidad.
                       </p>
                     </DrawerFooter>
                   </div>
@@ -319,28 +314,25 @@ export const LandingTigerFortuna = () => {
             <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-amber-500/10 blur-2xl" />
 
             <div className="relative">
-              <span className="mb-4 inline-block rounded-full bg-amber-500/10 px-4 py-1 text-sm font-medium text-amber-400">
-                BONO EXCLUSIVO
-              </span>
-              <h3 className="mb-8 text-3xl font-bold sm:text-4xl">
+              <div className="mb-4 flex items-center gap-3">
+                <span className="text-4xl">🎁</span>
+                <span className="rounded-full bg-amber-500/10 px-4 py-1 text-sm font-medium text-amber-400">
+                  BONO EXCLUSIVO
+                </span>
+              </div>
+              <h3 className="mb-6 text-3xl font-bold sm:text-4xl">
                 Bono de Bienvenida
               </h3>
 
-              <ul className="space-y-4">
-                {BONO_BULLETS.map((bullet, index) => (
-                  <li
-                    key={index}
-                    className="flex items-start gap-3 text-lg text-zinc-300"
-                  >
-                    <span className="mt-1 text-xl">{bullet.slice(0, 2)}</span>
-                    <span>{bullet.slice(3)}</span>
-                  </li>
-                ))}
-              </ul>
+              <p className="text-lg text-zinc-300 leading-relaxed">
+                Aprovechá nuestro bono de bienvenida, que se activa automáticamente con tu primera recarga.
+              </p>
+              <p className="mt-4 text-xl font-semibold text-amber-400">
+                ¡Duplicamos tu saldo para que arranques a jugar con más chances desde el primer momento!
+              </p>
 
               <p className="mt-8 text-sm text-zinc-500">
-                * T&C aplican. Bono sujeto a requisitos de apuesta. Solo mayores
-                de 18 años.
+                * Aplican bases y condiciones. Consultá con tu agente para más detalles.
               </p>
             </div>
           </div>
@@ -357,9 +349,6 @@ export const LandingTigerFortuna = () => {
               ¿Por qué elegir{" "}
               <span className="text-amber-400">Tiger Fortuna</span>?
             </h3>
-            <p className="mt-4 text-zinc-400">
-              Descubrí lo que nos hace diferentes
-            </p>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:gap-8">
@@ -385,16 +374,58 @@ export const LandingTigerFortuna = () => {
       </section>
 
       {/* ─────────────────────────────────────────────────────────── */}
+      {/* INFORMACIÓN IMPORTANTE */}
+      {/* ─────────────────────────────────────────────────────────── */}
+      <section className="relative py-16 sm:py-24">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/30 p-8 sm:p-10">
+            <div className="mb-6 flex items-center gap-3">
+              <span className="text-2xl">⚠️</span>
+              <h3 className="text-xl font-bold sm:text-2xl">Información importante</h3>
+            </div>
+            <p className="mb-6 text-zinc-400">Para que tengas una buena experiencia:</p>
+            <ul className="space-y-4">
+              {INFO_POINTS.map((point, index) => (
+                <li key={index} className="flex items-start gap-3 text-zinc-300">
+                  <span className="mt-1 text-amber-500">•</span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────── */}
+      {/* ATENCIÓN Y ACOMPAÑAMIENTO */}
+      {/* ─────────────────────────────────────────────────────────── */}
+      <section className="relative py-16 sm:py-24">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="mb-4 flex items-center justify-center gap-2">
+              <span className="text-3xl">🔒</span>
+            </div>
+            <h3 className="mb-4 text-2xl font-bold sm:text-3xl">
+              Atención clara y acompañamiento
+            </h3>
+            <p className="mx-auto max-w-2xl text-lg text-zinc-400">
+              Nuestro equipo te va a acompañar en todo el proceso para que empieces a jugar sin vueltas y con total confianza.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────── */}
       {/* CTA FINAL */}
       {/* ─────────────────────────────────────────────────────────── */}
       <section className="relative py-16 sm:py-24">
         <div className="absolute inset-0 bg-gradient-to-t from-amber-950/20 to-transparent" />
         <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <h3 className="text-3xl font-bold sm:text-4xl">
-            ¿Listo para ganar?
+            ¿Listo para empezar?
           </h3>
           <p className="mt-4 text-lg text-zinc-400">
-            Unite a miles de jugadores que ya disfrutan de Tiger Fortuna
+            Dejanos tus datos y un agente te contacta en el momento
           </p>
           <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
             <DrawerTrigger asChild>
@@ -416,26 +447,20 @@ export const LandingTigerFortuna = () => {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="flex items-center gap-2">
-              <span className="text-2xl">🐅</span>
-              <span className="font-bold text-amber-400">TIGER FORTUNA</span>
+              <img className="max-w-50 object-contain px-10" src={logo} alt="tiger fortuna logo" />
             </div>
             <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-zinc-500 sm:gap-4">
               <span className="rounded bg-zinc-800 px-2 py-1 font-bold">
                 +18
               </span>
               <span>|</span>
-              <a href="#" className="hover:text-amber-400">
-                Juego responsable
-              </a>
+              <span>Juego responsable</span>
               <span>|</span>
-              <a href="#" className="hover:text-amber-400">
-                Términos y condiciones
-              </a>
+              <span>Solo mayores de edad</span>
             </div>
           </div>
           <p className="mt-6 text-center text-xs text-zinc-600">
-            © {new Date().getFullYear()} Tiger Fortuna. Todos los derechos
-            reservados. Jugá con responsabilidad.
+            © {new Date().getFullYear()} Tiger Fortuna. Todos los derechos reservados. Jugá con responsabilidad.
           </p>
         </div>
       </footer>
@@ -449,31 +474,17 @@ export const LandingTigerFortuna = () => {
             className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 px-6 py-6 font-bold text-black shadow-2xl shadow-amber-500/40 transition-all hover:scale-110 hover:from-amber-400 hover:to-orange-500 sm:bottom-8 sm:right-8"
             aria-label="Abrir formulario de registro"
           >
-            <span className="hidden sm:inline">Creá tu usuario</span>
-            <span className="sm:hidden">Registrate</span>
-            <svg
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 7l5 5m0 0l-5 5m5-5H6"
-              />
-            </svg>
+            Creá tu usuario
           </Button>
         </DrawerTrigger>
         <DrawerContent className="border-zinc-800 bg-zinc-900">
           <div className="mx-auto w-full max-w-md">
             <DrawerHeader>
               <DrawerTitle className="text-center text-2xl font-bold text-white">
-                🐅 Creá tu cuenta
+                📝 Creá tu usuario ahora
               </DrawerTitle>
               <DrawerDescription className="text-center text-zinc-400">
-                Completá tus datos y empezá a jugar con tu bono de bienvenida.
+                Dejanos tu nombre y tu número de WhatsApp. Un agente de Tiger Fortuna se va a comunicar con vos en el momento.
               </DrawerDescription>
             </DrawerHeader>
             <div className="px-4 pb-4">
@@ -481,10 +492,7 @@ export const LandingTigerFortuna = () => {
             </div>
             <DrawerFooter className="border-t border-zinc-800 pt-4">
               <p className="text-center text-xs text-zinc-500">
-                Al registrarte aceptás los{" "}
-                <a href="#" className="text-amber-500 hover:underline">
-                  Términos y Condiciones
-                </a>
+                Solo para mayores de 18 años. Jugá con responsabilidad.
               </p>
             </DrawerFooter>
           </div>
