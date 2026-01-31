@@ -1,0 +1,7 @@
+export * from "./welcome-bonus"
+export * from "./why-chose"
+export * from "./important-info"
+export * from "./attention-accompaniment"
+export * from "./footer"
+export * from "./final-cta"
+export * from "./custom-button"
