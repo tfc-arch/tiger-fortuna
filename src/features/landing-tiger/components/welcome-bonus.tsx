@@ -2,7 +2,6 @@ export const WelcomeBonus = () =>
     <section className="relative py-16 sm:py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <div className="relative overflow-hidden rounded-3xl border border-amber-500/20 bg-gradient-to-br from-zinc-900 via-zinc-900 to-amber-950/30 p-8 shadow-2xl sm:p-12">
-                {/* Decorative corner */}
                 <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-amber-500/10 blur-2xl" />
 
                 <div className="relative">

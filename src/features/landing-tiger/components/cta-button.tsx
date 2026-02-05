@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
-import { useLanding } from "@/providers/landing";
 
 
 type CTAButtonProps = Omit<ComponentProps<typeof Button>, "variant"> & {
@@ -11,10 +10,14 @@ type CTAButtonProps = Omit<ComponentProps<typeof Button>, "variant"> & {
 export function CTAButton({
     variant = "primary",
     className,
-    children = "Creá tu usuario ahora",
+    children: text = "Unite al Grupo de WhatsApp",
     ...props
 }: CTAButtonProps) {
-    const { openDrawer } = useLanding();
+
+    const handleClick = () => {
+        const whatsappLink = import.meta.env.VITE_WHATSAPP_GROUP_1;
+        window.open(whatsappLink, "_blank");
+    }
 
     const baseStyles =
         "bg-gradient-to-r from-amber-500 to-orange-600 font-bold text-black shadow-2xl shadow-amber-500/30 transition-all hover:scale-105 hover:from-amber-400 hover:to-orange-500";
@@ -29,16 +32,16 @@ export function CTAButton({
         <Button
             size="lg"
             className={cn(baseStyles, variants[variant], className)}
-            onClick={openDrawer}
+            onClick={handleClick}
             {...props}
         >
             {variant === "primary" ? (
                 <>
-                    <span className="relative z-10">{children}</span>
+                    <span className="relative z-10">{text}</span>
                     <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform group-hover:translate-x-full" />
                 </>
             ) : (
-                children
+                text
             )}
         </Button>
     );
