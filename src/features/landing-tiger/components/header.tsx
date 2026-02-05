@@ -1,7 +1,19 @@
 import logo from "@/assets/logo.png";
+import { useState } from "react";
+import { Copy, Check } from 'lucide-react';
 
 export function Header() {
+
+    const [copied, setCopied] = useState(false);
+
     const WHATSAPP_GROUP_URL = import.meta.env.VITE_WHATSAPP_GROUP_1;
+
+    const handleClick = () => {
+        navigator.clipboard.writeText("0971442269");
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
     return (
         <header className="">
             {/* Glow effect */}
@@ -38,13 +50,24 @@ export function Header() {
                             <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
                                 <p className="text-lg text-zinc-200">
                                     <span className="mr-2 text-xl">1️⃣</span>
-                                    Hacé una transferencia al Alias:{" "}
-                                    <span className="font-bold text-amber-400">0971442269</span>
+                                    Hacé una transferencia al Alias:
                                 </p>
+
+                                <div className="flex gap-2 items-center">
+                                    <span className="font-bold text-amber-400">0971442269</span>
+                                    <button onClick={handleClick}>
+                                        {copied
+                                            ? <Check className="h-5 w-5 text-green-500" />
+                                            : <Copy className="h-5 w-5 text-zinc-400" />
+                                        }
+                                    </button>
+                                </div>
+
                                 <p className="mt-2 text-zinc-400">
                                     💰 Monto mínimo <span className="font-semibold text-white">10.000 Gs</span>
                                 </p>
                             </div>
+
 
                             {/* Paso 2 */}
                             <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
