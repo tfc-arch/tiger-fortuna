@@ -32,9 +32,9 @@ export function Header() {
                 {/* Hero Content */}
                 <div className="text-center">
                     <h2 className="mx-auto max-w-3xl text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl">
-                        El casino online que{" "}
+                        Comunidad privada de entrenimiento {" "}
                         <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
-                            más paga
+                            online
                         </span>{" "}
                         💸
                     </h2>
